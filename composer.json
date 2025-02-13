@@ -1,0 +1,17 @@
+{
+    "name": "wideeye/code-review",
+    "description": "Code Review plugin",
+    "type": "wordpress-plugin",
+    "autoload": {
+        "psr-4": {
+            "WideEye\\CodeReview\\": "lib/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wide Eye Creative",
+            "email": "dev@wideeye.co"
+        }
+    ],
+    "require": {}
+}
