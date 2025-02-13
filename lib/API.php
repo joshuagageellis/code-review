@@ -44,6 +44,24 @@ class API extends WP_REST_Controller {
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
+			'/' . $this->rest_base . '/(?P<model>[\a-z_-]+)',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_item' ),
+				'permission_callback' => array( $this, 'get_item_permissions_check' ),
+				'schema'              => array( $this, 'get_item_schema' ),
+				'args'                => array(
+					'model' => array(
+						'description' => 'The model to use.',
+						'type'        => 'string',
+						'default'     => 'default',
+						'required'    => true,
+					),
+				),
+			),
+		);
+		register_rest_route(
+			$this->namespace,
 			'/' . $this->rest_base,
 			array(
 				'methods'             => 'GET',
@@ -60,11 +78,16 @@ class API extends WP_REST_Controller {
 	 * @param WP_REST_Request $request Full data about the request.
 	 */
 	public function get_item( $request ) {
-		$body = wp_json_encode(
-			array(
-				'model' => 'kaguya_film',
-			)
+		$args = array(
+			'model' => 'default',
 		);
+
+		$model = $request->get_param( 'model' );
+		if ( $model ) {
+			$args['model'] = $model;
+		}
+
+		$body = wp_json_encode( $args );
 
 		$options = array(
 			'body'        => $body,
