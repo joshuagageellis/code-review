@@ -39,6 +39,19 @@ class API extends WP_REST_Controller {
 	protected $rest_base = 'palette';
 
 	/**
+	 * Options.
+	 *
+	 * @var array
+	 */
+	public static $palette_options = array(
+		'default'            => 'Default',
+		'ui'                 => 'UI',
+		'amelie_film'        => 'Graphic',
+		'nature_photography' => 'Interior',
+		'kaguya_film'        => 'Fashion',
+	);
+
+	/**
 	 * Register the routes for the objects of the controller.
 	 */
 	public function register_routes() {
